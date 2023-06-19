@@ -1,108 +1,141 @@
-
 <!DOCTYPE html">
-<html><head>
-<meta http-equiv="content-type" content="text/html; charset=windows-1252"><title>Phase plane plotter</title>
-<style type="text/css">
-body {background-color:#adb1ff;}
-input{background-color: #dddddd;}
-canvas.axis{background-color: #adb1ff;}
-canvas{background-color: #eeeeee;}
-</style>
+<html>
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+	<title>Phase plane plotter</title>
+	<style type="text/css">
+		body {
+			background-color: #adb1ff;
+		}
+
+		input {
+			background-color: #dddddd;
+		}
+
+		canvas.axis {
+			background-color: #adb1ff;
+		}
+
+		canvas {
+			background-color: #eeeeee;
+		}
+	</style>
 
 </head>
+
 <body>
 
-<!--TODO:
+	<!--TODO:
 Runge-Kutta
 -->
-<!--Form fields and other displayed things-->
-<p>
-dx/dt = f(x,y), dy/dt = g(x,y).</p>
-<table><tr><td>
+	<!--Form fields and other displayed things-->
+	<p>
+		dx/dt = f(x,y), dy/dt = g(x,y).</p>
 
-<nobr>x'=<input id='xprime_id' size=60 type="text" value="x-y-x^3-x*y^2"></nobr>
-
-<br />
-
-<nobr>y'=<input id='yprime_id' size=60 type = "text" value="x+y-x^2*y-y^3"></nobr>
-
-</td>
-<!-- <td>The direction field solver knows about trigonometric, logarithmic and exponential functions, but multiplication and evaluation must be entered explicitly (<span style="font-family:sans-serif">2*x</span> and <span style="font-family:sans-serif">sin(x)</span>, not <span style="font-family:sans-serif">2x</span> and <span style="font-family:sans-serif">sin x</span>).</td></tr></table> -->
-
-<!--Used to test the parseCaret function while writing it-->
-<!--
-test=<input id='test' size=60 type = "text" value="3+x^2-5+2^7+3^8"> 
-<button onClick='userSubmit()'>Test string</button>
-<P><div id='printtest'></div></p>
-<script type='text/javascript'>
-function userSubmit() {
-	var testinput=document.getElementById('test').value;
-	var testoutput = parseCaret(testinput);
-	document.getElementById('printtest').innerHTML='test: '+testoutput;
-}
-</script>
--->
+	<hr style="width:90%">
+	<p>Parameter of Model</p>
 
 
+	<input type="checkbox"><span>Strong Effect</span>
+	<table>
+		<tr>
+			<td>α = Kr/a</td>
+			<td> <input id='alpha' size=5 value=0.5> &nbsp;&nbsp;&nbsp; </td>
+			<td>β = L/K</td>
+			<td> <input id='beta' size=5 value=0.2> &nbsp;&nbsp;&nbsp; </td>
+			
+		</tr>
+		<tr>
+			<td>γ = (c*a)/r</td>
+			<td><input id='gamma' size=5 value=0.355> </td>
 
-<hr style="width:90%">
-The Display:
-<br />
-<table>
-<tr>
-<td>Minimum x: </td><td> <input id='xmin_id' size=5 value=-5> &nbsp;&nbsp;&nbsp; </td>
-<td>Minimum y: </td><td> <input id='ymin_id' size=5 value=-5> &nbsp;&nbsp;&nbsp; </td>
-<td>Arrow length: </td><td> <input id='arrow_id' size=5 value=15> </td>
-<td><input type="checkbox" id="variableArrows"> Variable length arrows</td>
-</tr>
-<tr>
-<td>Maximum x: </td><td> <input id='xmax_id' size=5 value=5> </td>
-<td>Maximum y: </td><td> <input id='ymax_id' size=5 value=5> </td>
-<td>Number of arrows: </td><td> <input id='arrownumber_id' size=5 value=20> </td>
-</tr>
-<tr>
-</tr>
-</table>
+			<td>δ = m/(K*r)</td>
+			<td><input id='theta' size=5 value=0.2> </td>
+		</tr>
+		<tr>
+		</tr>
+	</table>
+	
 
-<button onClick='draw()'>Graph Phase Plane</button>
 
-<hr style="width:90%">
 
-<canvas id="yAxisCanvas" width="30" height="600" class="axis">
-</canvas>&nbsp;<canvas id="myCanvas" width="600" height="600"
-style="border:1px solid #000000;">
-</canvas><br />
-<canvas id="spacerCanvas" width="30" height="30" class="axis"></canvas>&nbsp;<canvas id="xAxisCanvas" width="600" height="30" class="axis"></canvas>
 
-<script type='text/javascript'>
-	// Define x', y'
-	// This is separate because it is the real difference between
-	// dfield and pplane
-	function setDerivatives(){
-		yprimeString = parseFunction(document.getElementById('yprime_id').value);
-		xprimeString = parseFunction(document.getElementById('xprime_id').value);
-		//yprimeString = document.getElementById('yprime_id').value;
-		//xprimeString = document.getElementById('xprime_id').value;
-		//document.getElementById('printtest').innerHTML="y': " +yprimeString;
-		
-		try  {
-			eval("yprime = function (x,y) { with(Math) {return " + yprimeString + ";}}");
-		} catch (e) {
-			alert(e); throw(e);
-		}
-		try  {
-			eval("xprime = function (x,y) { with(Math) {return " + xprimeString + ";}}");
-		} catch (e) {
-			alert(e); throw(e);
-		}
-	}
-</script>
 
-<script src='dfpp.js'>
+	<!--For Prey-Predator Model-->
 
-</script>
+	<table>
+		<tr>
+			<td>
+				<nobr>x'=<input id='xprime_id' size=60 type="text" value="x-y-x^3-x*y^2"></nobr>
+				<br />
+				<nobr>y'=<input id='yprime_id' size=60 type="text" value="x+y-x^2*y-y^3"></nobr>
+			</td>
 
-<!-- 
+			<hr style="width:90%">
+			The Formula:
+			<br />
+			<table>
+				<tr>
+					<td>Minimum x: </td>
+					<td> <input id='xmin_id' size=5 value=-5> &nbsp;&nbsp;&nbsp; </td>
+					<td>Minimum y: </td>
+					<td> <input id='ymin_id' size=5 value=-5> &nbsp;&nbsp;&nbsp; </td>
+					<td>Arrow length: </td>
+					<td> <input id='arrow_id' size=5 value=15> </td>
+					<td><input type="checkbox" id="variableArrows"> Variable length arrows</td>
+				</tr>
+				<tr>
+					<td>Maximum x: </td>
+					<td> <input id='xmax_id' size=5 value=5> </td>
+					<td>Maximum y: </td>
+					<td> <input id='ymax_id' size=5 value=5> </td>
+					<td>Number of arrows: </td>
+					<td> <input id='arrownumber_id' size=5 value=20> </td>
+				</tr>
+				<tr>
+				</tr>
+			</table>
+
+			<button onClick='draw()'>Graph Phase Plane</button>
+
+			<hr style="width:90%">
+
+			<canvas id="yAxisCanvas" width="30" height="600" class="axis">
+			</canvas>&nbsp;<canvas id="myCanvas" width="600" height="600" style="border:1px solid #000000;">
+			</canvas><br />
+			<canvas id="spacerCanvas" width="30" height="30" class="axis"></canvas>&nbsp;<canvas id="xAxisCanvas"
+				width="600" height="30" class="axis"></canvas>
+
+			<script type='text/javascript'>
+				// Define x', y'
+				// This is separate because it is the real difference between
+				// dfield and pplane
+				function setDerivatives() {
+					yprimeString = parseFunction(document.getElementById('yprime_id').value);
+					xprimeString = parseFunction(document.getElementById('xprime_id').value);
+					//yprimeString = document.getElementById('yprime_id').value;
+					//xprimeString = document.getElementById('xprime_id').value;
+					//document.getElementById('printtest').innerHTML="y': " +yprimeString;
+
+					try {
+						eval("yprime = function (x,y) { with(Math) {return " + yprimeString + ";}}");
+					} catch (e) {
+						alert(e); throw (e);
+					}
+					try {
+						eval("xprime = function (x,y) { with(Math) {return " + xprimeString + ";}}");
+					} catch (e) {
+						alert(e); throw (e);
+					}
+				}
+			</script>
+
+			<script src='dfpp.js'>
+
+			</script>
+
+			<!-- 
 <BR>
 <P><div id='printXPrime'></div></p>
 <P><div id='printYPrime'></div></p>
@@ -120,4 +153,5 @@ document.getElementById('printYPrime').innerHTML='y-prime: '+yp;
  -->
 
 </body>
+
 </html>

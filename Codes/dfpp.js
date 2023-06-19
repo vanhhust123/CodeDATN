@@ -175,6 +175,21 @@ var x0, y0;
 // Draw the axes and the phase plane
 function draw() {
     console.log('draw');
+
+	// Strong 
+	let x_formula = `x*(1-x)*(x-${document.getElementById('beta').value})-${document.getElementById('alpha').value}*x*y`; 
+    let y_formula = `${document.getElementById('gamma').value}*x*y-${document.getElementById('theta').value}*y`;
+
+
+	console.log("x: " + x_formula); 
+	console.log("y: " + y_formula); 
+
+	document.getElementById('xprime_id').value = x_formula; 
+	document.getElementById('yprime_id').value = y_formula; 
+	
+
+	// Week
+
 	var steps = document.getElementById('arrownumber_id').value;;
 	
 	var xAxis = document.getElementById("xAxisCanvas");
