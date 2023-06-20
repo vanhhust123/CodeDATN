@@ -37,7 +37,7 @@ Runge-Kutta
 	<p>Parameter of Model</p>
 
 
-	<input type="checkbox"><span>Strong Effect</span>
+	<input type="checkbox" id="isStrong"><span>Strong Effect</span>
 	<table>
 		<tr>
 			<td>α = Kr/a</td>
@@ -48,7 +48,7 @@ Runge-Kutta
 		</tr>
 		<tr>
 			<td>γ = (c*a)/r</td>
-			<td><input id='gamma' size=5 value=0.355> </td>
+			<td><input id='gamma' size=5 value=0.29> </td>
 
 			<td>δ = m/(K*r)</td>
 			<td><input id='theta' size=5 value=0.2> </td>
@@ -78,18 +78,18 @@ Runge-Kutta
 			<table>
 				<tr>
 					<td>Minimum x: </td>
-					<td> <input id='xmin_id' size=5 value=-5> &nbsp;&nbsp;&nbsp; </td>
+					<td> <input id='xmin_id' size=5 value=-0.1> &nbsp;&nbsp;&nbsp; </td>
 					<td>Minimum y: </td>
-					<td> <input id='ymin_id' size=5 value=-5> &nbsp;&nbsp;&nbsp; </td>
+					<td> <input id='ymin_id' size=5 value=-0.1> &nbsp;&nbsp;&nbsp; </td>
 					<td>Arrow length: </td>
 					<td> <input id='arrow_id' size=5 value=15> </td>
 					<td><input type="checkbox" id="variableArrows"> Variable length arrows</td>
 				</tr>
 				<tr>
 					<td>Maximum x: </td>
-					<td> <input id='xmax_id' size=5 value=5> </td>
+					<td> <input id='xmax_id' size=5 value=1> </td>
 					<td>Maximum y: </td>
-					<td> <input id='ymax_id' size=5 value=5> </td>
+					<td> <input id='ymax_id' size=5 value=0.6> </td>
 					<td>Number of arrows: </td>
 					<td> <input id='arrownumber_id' size=5 value=20> </td>
 				</tr>
