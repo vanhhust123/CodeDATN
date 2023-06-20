@@ -223,6 +223,8 @@ function draw() {
 	xscale = canvas.width / (xmax - xmin);
 	yscale = canvas.height / (ymax - ymin);
 
+	console.log(`xscale: ${xscale}, yscale:${yscale}`);
+
 	x0 = (-1) * xmin * xscale;
 	y0 = ymax * yscale;
 	var xstep = (xmax - xmin) / steps;
@@ -232,28 +234,39 @@ function draw() {
 	// Draw some grid lines
 	context.strokeStyle = "rgba(192, 192, 255, 1)"; // light blue lines
 	context.beginPath();
-	xCtx.textAlign = "center";
-	yCtx.textAlign = "end";
+	xCtx.textAlign = "center"; // Của trục x
+	yCtx.textAlign = "end"; // Của trục y 
 	xCtx.textBaseline = "top";
 	yCtx.textBaseline = "middle";
-	xstepsize = 0.25 * Math.ceil(4 * ((xmax - xmin) / 20));
-	ystepsize = 0.25 * Math.ceil(4 * ((ymax - ymin) / 20));
-	var x; x = 0.5 * Math.ceil(2 * (xmin + xstepsize * 1.0));
-	while (x <= xmax - 0.2) {
+	//xstepsize = 0.25 * Math.ceil(4 * ((xmax - xmin) / 20)); // old
+	xstepsize = +(document.getElementById('step_x').value ) * Math.ceil(4 * ((xmax - xmin) / 20));
+	//ystepsize = 0.25 * Math.ceil(4 * ((ymax - ymin) / 20)); // old
+	ystepsize = +(document.getElementById('step_y').value ) * Math.ceil(4 * ((ymax - ymin) / 20));
+	var x; 
+	//x = 0.5 * Math.ceil(2 * (+xmin + xstepsize * 1.0)); // old
+	x = 0.5 * (2 * (+xmin + xstepsize * 1.0)).toFixed(1);
+
+	console.log(`stepSize: x=${xstepsize}, y:${ystepsize}`);
+	// console.log(`x: ${x}`); 
+	while (x <= xmax) {
 		if (x != 0) {
 			context.moveTo(x * xscale + x0, 0);
 			context.lineTo(x * xscale + x0, canvas.height);
 		}
-		xCtx.fillText(x, x * xscale + x0, 1);
+		console.log(`${x}:${x*xscale + x0}`)
+		xCtx.fillText(x.toFixed(2), x * xscale + x0 + 5, 1);
 		x = x + xstepsize;
 	}
-	var y; y = 0.5 * Math.ceil(2 * (ymin + ystepsize * 1.0));
-	while (y <= ymax - 0.2) {
+	var y; 
+	//y = 0.5 * Math.ceil(2 * (+ymin + ystepsize * 1.0)); // old
+
+	y = 0.5 * (2 * (+ymin + ystepsize * 1.0)).toFixed(1); 
+	while (y <= ymax) {
 		if (y != 0) {
 			context.moveTo(0, y0 - y * yscale);
 			context.lineTo(canvas.width, y0 - y * yscale);
 		}
-		yCtx.fillText(y, yAxis.width - 1, y0 - y * yscale);
+		yCtx.fillText(y.toFixed(2), yAxis.width - 1, y0 - y * yscale);
 		y = y + ystepsize;
 	}
 	context.stroke();
@@ -344,8 +357,8 @@ var doMouseDown = function (canvas, xcoord, ycoord) {
 	console.log(arrow);
 	var dt;
 	var dT;
-	dT = 0.05 * arrow / Math.max(xscale, yscale);
-	console.log(dT);
+	dT = 0.090 * arrow / Math.max(xscale, yscale);
+	//console.log(dT);
 	var X, Y, prevX, prevY;
 	var dx, dy, t, T;
 	var startingX, startingY, isMoving, isNotBlowingUp;
@@ -353,10 +366,12 @@ var doMouseDown = function (canvas, xcoord, ycoord) {
 	var RKY1, RKY2, RKY3, RKY4;
 
 	for (i = -1; i <= 1; i = i + 2) {
+		console.log('start'); 
 		context.beginPath();
 		context.moveTo(xcoord, ycoord);
 		X = (xcoord - x0) / xscale;
 		Y = -(ycoord - y0) / yscale;
+		//console.log(`x:${X}, y:${Y}`)
 		prevX = X;
 		prevY = Y;
 		t = 0;
@@ -366,15 +381,18 @@ var doMouseDown = function (canvas, xcoord, ycoord) {
 		startingY = Y;
 		prevX = X;
 		prevY = Y;
-		while (t < 30000
-			&& X < xmax + 100 * (xmax - xmin)
-			&& X > xmin - 100 * (xmax - xmin)
-			&& Y < ymax + 100 * (xmax - xmin)
-			&& Y > ymin - 100 * (xmax - xmin)
+		while (t < 50000
+			// && X < xmax + 100 * (xmax - xmin)
+			// && X > xmin - 100 * (xmax - xmin)
+			// && Y < ymax + 100 * (xmax - xmin)
+			// && Y > ymin - 100 * (xmax - xmin)
+			 && X < xmax && X > xmin 
+			 && Y > ymin && Y < ymax
 			&& Math.abs(X - prevX) < (xmax - xmin) / 20
 			&& Math.abs(Y - prevY) < (ymax - ymin) / 20
 			&& isNotBlowingUp
 		) {
+			//console.log(t);
 			t = t + 1;
 			//Runge-Kutta
 			RKX1 = i * xprime(X, Y);
@@ -392,17 +410,20 @@ var doMouseDown = function (canvas, xcoord, ycoord) {
 			prevY = Y;
 			X = X + dx;
 			Y = Y + dy;
-			isNotBlowingUp = false;
-			if (Math.abs(dx) / (xmax - xmin) + Math.abs(dy) / (ymax - ymin) < 0.01) {
+			//console.log(`new X, Y:${X} === ${Y}`)
+			//isNotBlowingUp = false;
+			//if (Math.abs(dx) / (xmax - xmin) + Math.abs(dy) / (ymax - ymin) < 0.0001) {
 				context.lineTo(x0 + X * xscale, y0 - Y * yscale);
-				isNotBlowingUp = true;
-			}
+				//isNotBlowingUp = true;
+				//console.log('blowing up')
+			//}
 			if (Math.abs((startingX - X) * xscale) > 2) {
 				isMoving = true;
 			}
 			if (Math.abs((startingY - Y) * yscale) > 2) {
 				isMoving = true;
 			}
+			console.log(t); 
 		}
 		context.stroke();
 	}
