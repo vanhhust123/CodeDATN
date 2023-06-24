@@ -352,7 +352,7 @@ function getMousePos(canvas, evt) {
 
 
 var doMouseDown = function (canvas, xcoord, ycoord) {
-	context.strokeStyle = "rgba(0, 120, 0, 1)"; // dark red
+	context.strokeStyle = "rgba(255, 0, 0, 1)"; // dark red
 	var arrow = document.getElementById('arrow_id').value;
 	console.log(arrow);
 	var dt;
@@ -381,7 +381,7 @@ var doMouseDown = function (canvas, xcoord, ycoord) {
 		startingY = Y;
 		prevX = X;
 		prevY = Y;
-		while (t < 50000
+		while (t < 25000
 			// && X < xmax + 100 * (xmax - xmin)
 			// && X > xmin - 100 * (xmax - xmin)
 			// && Y < ymax + 100 * (xmax - xmin)
