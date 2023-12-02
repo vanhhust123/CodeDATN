@@ -1,8 +1,7 @@
 <!DOCTYPE html">
-<html>
-
-<head>
-	<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<!-- saved from url=(0059)file:///F:/20221/%C4%90%E1%BB%93%20%C3%A1n/Codes/index.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	
 	<title>Phase plane plotter</title>
 	<style type="text/css">
 		body {
@@ -39,95 +38,94 @@ Runge-Kutta
 
 	<input type="checkbox" id="isStrong"><span>Strong Effect</span>
 	<table>
-		<tr>
+		<tbody><tr>
 			<td>(alpha)α = Kr/a</td>
-			<td> <input id='alpha' size=5 value=0.5> &nbsp;&nbsp;&nbsp; </td>
+			<td> <input id="alpha" size="5" value="0.5"> &nbsp;&nbsp;&nbsp; </td>
 			<td>(beta)β = L/K</td>
-			<td> <input id='beta' size=5 value=0.2> &nbsp;&nbsp;&nbsp; </td>
+			<td> <input id="beta" size="5" value="0.2"> &nbsp;&nbsp;&nbsp; </td>
 			
 		</tr>
 		<tr>
 			<td>(gamma)γ = (c*a)/r</td>
-			<td><input id='gamma' size=5 value=0.36> </td>
+			<td><input id="gamma" size="5" value="0.36"> </td>
 
 			<td>(delta)δ = m/(K*r)</td>
-			<td><input id='delta' size=5 value=0.4> </td>
+			<td><input id="delta" size="5" value="0.4"> </td>
 		</tr>
 		<tr>
 		</tr>
-	</table>
+	</tbody></table>
 	
 
 
 	<hr style="width:90%">
 	<p>Equibirium Points</p>
 	<table>
-		<tr>
+		<tbody><tr>
 			<td>E_0</td>
-			<td> <input id='E_0' size=10  value=''> &nbsp;&nbsp;&nbsp; </td>
+			<td> <input id="E_0" size="10" value=""> &nbsp;&nbsp;&nbsp; </td>
 			<td>E_1</td>
-			<td> <input id='E_1' size=10 > &nbsp;&nbsp;&nbsp; </td>
+			<td> <input id="E_1" size="10"> &nbsp;&nbsp;&nbsp; </td>
 			
 		</tr>
 		<tr>
 			<td>E_2</td>
-			<td><input id='E_2' size=10 > </td>
+			<td><input id="E_2" size="10"> </td>
 
 			<td>E_*</td>
-			<td><input id='E_P' size=10 > </td>
+			<td><input id="E_P" size="10"> </td>
 		</tr>
 		<tr>
 		</tr>
-	</table>
+	</tbody></table>
 	<!--For Prey-Predator Model-->
-	<table>
-		<tr>
+	<hr style="width:90%">
+			The Formula:
+			<br><table>
+		<tbody><tr>
 			<td>
-				<nobr>x'=<input id='xprime_id' size=60 type="text" value="x-y-x^3-x*y^2"></nobr>
-				<br />
-				<nobr>y'=<input id='yprime_id' size=60 type="text" value="x+y-x^2*y-y^3"></nobr>
+				<nobr>x'=<input id="xprime_id" size="60" type="text" value="x-y-x^3-x*y^2"></nobr>
+				<br>
+				<nobr>y'=<input id="yprime_id" size="60" type="text" value="x+y-x^2*y-y^3"></nobr>
 			</td>
 
-			<hr style="width:90%">
-			The Formula:
-			<br />
-			<table>
-				<tr>
+			
+			</tr></tbody></table><table>
+				<tbody><tr>
 					<td>Minimum x: </td>
-					<td> <input id='xmin_id' size=5 value=0> &nbsp;&nbsp;&nbsp; </td>
+					<td> <input id="xmin_id" size="5" value="0"> &nbsp;&nbsp;&nbsp; </td>
 					<td>Minimum y: </td>
-					<td> <input id='ymin_id' size=5 value=0> &nbsp;&nbsp;&nbsp; </td>
+					<td> <input id="ymin_id" size="5" value="0"> &nbsp;&nbsp;&nbsp; </td>
 					<td>Arrow length: </td>
-					<td> <input id='arrow_id' size=5 value=15> </td>
+					<td> <input id="arrow_id" size="5" value="15"> </td>
 					<td><input type="checkbox" id="variableArrows"> Variable length arrows</td>
 				</tr>
 				<tr>
 					<td>Maximum x: </td>
-					<td> <input id='xmax_id' size=5 value=1.1> </td>
+					<td> <input id="xmax_id" size="5" value="1.1"> </td>
 					<td>Maximum y: </td>
-					<td> <input id='ymax_id' size=5 value=0.18> </td>
+					<td> <input id="ymax_id" size="5" value="0.18"> </td>
 					<td>Number of arrows: </td>
-					<td> <input id='arrownumber_id' size=5 value=20> </td>
+					<td> <input id="arrownumber_id" size="5" value="20"> </td>
 				</tr>
 				<tr>
 					<td>Step size x: </td>
-					<td> <input id='step_x' size=5 value=0.1> </td>
+					<td> <input id="step_x" size="5" value="0.1"> </td>
 					<td>Step size y: </td>
-					<td> <input id='step_y' size=5 value=0.02> </td>
+					<td> <input id="step_y" size="5" value="0.02"> </td>
 				</tr>
-			</table>
+			</tbody></table>
 
-			<button onClick='draw()'>Graph Phase Plane</button>
+			<button onclick="draw()">Graph Phase Plane</button>
 
 			<hr style="width:90%">
 
 			<canvas id="yAxisCanvas" width="30" height="600" class="axis">
 			</canvas>&nbsp;<canvas id="myCanvas" width="600" height="600" style="border:1px solid #000000;">
-			</canvas><br />
-			<canvas id="spacerCanvas" width="30" height="30" class="axis"></canvas>&nbsp;<canvas id="xAxisCanvas"
-				width="600" height="30" class="axis"></canvas>
+			</canvas><br>
+			<canvas id="spacerCanvas" width="30" height="30" class="axis"></canvas>&nbsp;<canvas id="xAxisCanvas" width="600" height="30" class="axis"></canvas>
 
-			<script type='text/javascript'>
+			<script type="text/javascript">
 				// Define x', y'
 				// This is separate because it is the real difference between
 				// dfield and pplane
@@ -151,7 +149,7 @@ Runge-Kutta
 				}
 			</script>
 
-			<script src='dfpp.js'>
+			<script src="./Pic1_files/dfpp.js.download">
 
 			</script>
 
@@ -172,6 +170,6 @@ document.getElementById('printYPrime').innerHTML='y-prime: '+yp;
 </script>
  -->
 
-</body>
 
-</html>
+
+</body></html>
